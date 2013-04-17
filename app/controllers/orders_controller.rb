@@ -84,13 +84,19 @@ class OrdersController < ApplicationController
   end
 
   def confirm
-    @order = Order.find(params[:id])
+    @order = Order.find(params[:order_id])
+    error_message = nil
+    begin
+      @order.update_attributes(status: 1)
+    rescue => e
+      error_message = e.message
+    end
 
     respond_to do |format|
-      if @order.update_attributes(status: 1)
+      if error_message.blank?
         format.html { redirect_to @order, notice: 'Order was successfully confirmed.' }
       else
-        format.html { redirect_to @order, notice: 'Order was not successfully confirmed.' }
+        format.html { redirect_to @order, notice: "Order was not successfully confirmed: #{ error_message }"  }
       end
     end
   end

@@ -13,4 +13,8 @@ class Order < ActiveRecord::Base
   		item.update_attributes(status: 1)
   	end
   end
+
+  def been_confirmed
+  	status_changed? && status == 1
+  end
 end
