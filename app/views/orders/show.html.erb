@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<table>
+	<head>
+		<tr>
+			<td>name</td>
+			<td>status</td>
+		</tr>
+	</head>
+	<tbody>
+<% @order.order_items.each do |item| %>
+	<tr>
+		<td><%= item.name %></td>
+		<td><%= item.status %></td>
+	</tr>
+<% end %>
+	</tbody>
+</table>
+
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %> |
+<%= link_to 'Confirm', confirm_order_path(@order) %>
